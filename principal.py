@@ -19,7 +19,8 @@ def saludo_bienvenida():
 def muestra_seleccion():
     print(f"[P] PERFUMERIA.\n"
           f"[F] FARMACIA.\n"
-          f"[C] COSMETICA\n")
+          f"[C] COSMETICA\n"
+          f"[S] SALIR")
 
 
 def seleccion_seccion(lista):
@@ -36,34 +37,43 @@ def seleccion_seccion(lista):
 
 
 """funcion principal"""
+
+
 def inicio():
     """variables del programa"""
+
+    salir_turnero = False
     seccion_elegida = None
     lista_seccion = ['P', 'F', 'C']
+
     """generarmos los objetos"""
+
     seccion_perfumeria = numeros.GeneradorTurnos(None, "Perfumeria")
     seccion_farmacia = numeros.GeneradorTurnos(None, "Farmacia")
     seccion_cosmeticos = numeros.GeneradorTurnos(None, "Cosmeticos")
-    """bienvenida y seleccion de seccion"""
 
-    saludo_bienvenida()
-    muestra_seleccion()
-    # seccion_elegida = seleccion_seccion(lista_seccion)
-    try:
-        if seccion_elegida in lista_seccion:
-            if seccion_elegida == 'P':
-                seccion_perfumeria.genera_turno()
-            elif seccion_elegida == 'F':
-                seccion_farmacia.genera_turno()
-            elif seccion_elegida == 'C':
-                seccion_cosmeticos.genera_turno()
-                pass
-    except TypeError as e:
-        print(f"Error type: {e}")
-    except ValueError as e:
-        print(f"Error value: {e}")
+    while not salir_turnero:
+        """bienvenida y seleccion de seccion"""
 
-    os.system('cls')
+        saludo_bienvenida()
+        muestra_seleccion()
+        # seccion_elegida = seleccion_seccion(lista_seccion)
+        try:
+            if seccion_elegida in lista_seccion:
+                if seccion_elegida == 'P':
+                    seccion_perfumeria.genera_turno()
+                elif seccion_elegida == 'F':
+                    seccion_farmacia.genera_turno()
+                elif seccion_elegida == 'C':
+                    seccion_cosmeticos.genera_turno()
+                elif seccion_elegida == 'S':
+                    salir_turnero = True
+        except TypeError as e:
+            print(f"Error type: {e}")
+        except ValueError as e:
+            print(f"Error value: {e}")
+
+        os.system('cls')
 
 
 inicio()
