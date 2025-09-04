@@ -1,23 +1,52 @@
-# def mi_generador():
-#     for x in range(1,5):
-#         yield x * 10
-#
-# g = mi_generador()
-#
-# print(next(g))
-# print(next(g))
-# print(next(g))
-# print(next(g))
+"""Clase de la que hereda generador, tiene un atributo para controlar
+los tickets cargados en la maquina"""
 
 
-"""funcion que pregunta sección a la que se dirige el cliente"""
-def a_que_seccion_va():
-    print("Buenos días, ¿a qué sección va?")
+class Turnero:
+    MAX_TICKETS = 300
 
-"""funcion genera turno"""
+    def __init__(self, tickets_disponibles=None):
+        self.tickets_disponibles = tickets_disponibles or self.MAX_TICKETS
 
-"""funcion genera turno Perfumeria"""
 
-"""funcion genera turno Farmacia"""
+"""hereda de Turnero, inicializa la constante para determinar los turnos que le corresponden
+a cada seccion y añade un atributo seccon"""
 
-"""funcion genera turno Cosméticos"""
+
+class GeneradorTurnos(Turnero):
+    condificador = None
+
+    def __init__(self, tickets_disponibles, seccion):
+        super().__init__(tickets_disponibles)
+        self.seccion = seccion
+        self.tickets_generador = self.MAX_TICKETS // 3
+
+    def __str__(self):
+        return f"{self.seccion}. {self.tickets_generador}"
+
+    def asigna_seccion(self):  # asigna el codificador dependiendo de la seccion introducida
+        try:
+            var = str(self.seccion.upper())
+        except TypeError as e:
+            print(f"imposible conversion. error: {e}")
+        else:
+            match str(self.seccion.upper()):
+                case "PERFUMERIA":
+                    self.condificador = 'P-'
+                case "FARMACIA":
+                    self.condificador = 'F-'
+                case "COSMETICOS":
+                    self.condificador = 'C-'
+
+    def genera_turno(self):  # se resta tickets al cupo y se imprime seccion y num de espera
+        if int(self.tickets_generador) == 0:
+            print(f"Turnos para {self.seccion} a gotados.\n")
+        else:
+            print (f"{self.condificador}: {self.MAX_TICKETS // 3 - self.tickets_generador}")
+            self.tickets_generador -= 1
+        yield self.tickets_generador
+
+
+generador_perfumeria = GeneradorTurnos(None, 'Farmacia')
+print(generador_perfumeria)
+
