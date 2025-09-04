@@ -10,7 +10,8 @@ class Turnero:
 
 
 """hereda de Turnero, inicializa la constante para determinar los turnos que le corresponden
-a cada seccion y añade un atributo seccon"""
+a cada seccion y añade un atributo seccon pasa por argumento tickets_disponibles por si 
+se quiere modificar manualmente"""
 
 
 class GeneradorTurnos(Turnero):
@@ -22,7 +23,7 @@ class GeneradorTurnos(Turnero):
         self.tickets_generador = self.MAX_TICKETS // 3
 
     def __str__(self):
-        return f"{self.seccion}. {self.tickets_generador}"
+        return f"seccion: {self.seccion}. num.Tickets: {self.tickets_generador}"
 
     def asigna_seccion(self):  # asigna el codificador dependiendo de la seccion introducida
         try:
@@ -47,6 +48,8 @@ class GeneradorTurnos(Turnero):
         yield self.tickets_generador
 
 
-generador_perfumeria = GeneradorTurnos(None, 'Farmacia')
-print(generador_perfumeria)
+# generador_perfumeria = GeneradorTurnos(None, 'Farmacia')
+# print(generador_perfumeria)
+# generador_perfumeria.asigna_seccion()
+# print(generador_perfumeria.condificador)
 
