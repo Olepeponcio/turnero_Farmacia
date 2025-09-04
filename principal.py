@@ -23,17 +23,28 @@ def muestra_seleccion():
           f"[S] SALIR")
 
 
-def seleccion_seccion(lista):
+def seleccion_seccion(lista: list):
     lista = list(lista)
-    seccion = str(input("Introduzca el codigo de departamento: ")).upper()
-    while seccion not in lista_seccion:
+    seccion = '0'
+    while seccion not in lista:
         try:
-            seccion = input("Introduzca el codigo de departamento: ")
+            seccion = input("Introduzca el codigo de departamento: ").upper()
         except ValueError as e:
-            print("Entrada no valida, debes introducir 'P', 'F', 'C'")
+            print("Entrada no valida, debes introducir 'P', 'F', 'C' o 'S")
         else:
             pass
         return seccion
+
+
+def fun_vuelve_al_menu():
+    try:
+        tecla = input("Pulsa cualquier tecla para volver al menú... ")
+    except TypeError as e:
+        print(f"error {e}")
+    except ValueError as e:
+        print(f"error {e}")
+    else:
+        pass
 
 
 """funcion principal"""
@@ -44,34 +55,39 @@ def inicio():
 
     salir_turnero = False
     seccion_elegida = None
-    lista_seccion = ['P', 'F', 'C']
+    lista_seccion = ['P', 'F', 'C', 'S']
 
-    """generarmos los objetos"""
-
+    """generarmos los objetos y asignamos valor a su atributo correspondiente"""
     seccion_perfumeria = numeros.GeneradorTurnos(None, "Perfumeria")
+    seccion_perfumeria.asigna_seccion()
     seccion_farmacia = numeros.GeneradorTurnos(None, "Farmacia")
+    seccion_farmacia.asigna_seccion()
     seccion_cosmeticos = numeros.GeneradorTurnos(None, "Cosmeticos")
+    seccion_cosmeticos.asigna_seccion()
 
     while not salir_turnero:
         """bienvenida y seleccion de seccion"""
 
         saludo_bienvenida()
         muestra_seleccion()
-        # seccion_elegida = seleccion_seccion(lista_seccion)
+        seccion_elegida = seleccion_seccion(lista_seccion)
         try:
             if seccion_elegida in lista_seccion:
                 if seccion_elegida == 'P':
-                    seccion_perfumeria.genera_turno()
+                    next(seccion_perfumeria.genera_turno())
                 elif seccion_elegida == 'F':
-                    seccion_farmacia.genera_turno()
+                    next(seccion_farmacia.genera_turno())
                 elif seccion_elegida == 'C':
-                    seccion_cosmeticos.genera_turno()
+                    next(seccion_cosmeticos.genera_turno())
                 elif seccion_elegida == 'S':
                     salir_turnero = True
         except TypeError as e:
             print(f"Error type: {e}")
         except ValueError as e:
             print(f"Error value: {e}")
+
+        if not salir_turnero:
+            fun_vuelve_al_menu()
 
         os.system('cls')
 

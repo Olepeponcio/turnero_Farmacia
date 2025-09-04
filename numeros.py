@@ -41,15 +41,13 @@ class GeneradorTurnos(Turnero):
 
     def genera_turno(self):  # se resta tickets al cupo y se imprime seccion y num de espera
         if int(self.tickets_generador) == 0:
-            print(f"Turnos para {self.seccion} a gotados.\n")
+             print(f"Turnos para {self.seccion} a gotados.\n")
         else:
-            print (f"{self.condificador}: {self.MAX_TICKETS // 3 - self.tickets_generador}")
             self.tickets_generador -= 1
+            print (f"{self.condificador} {(self.MAX_TICKETS // 3) - self.tickets_generador}")
         yield self.tickets_generador
 
 
-# generador_perfumeria = GeneradorTurnos(None, 'Farmacia')
-# print(generador_perfumeria)
-# generador_perfumeria.asigna_seccion()
-# print(generador_perfumeria.condificador)
-
+generador_perfumeria = GeneradorTurnos(None, 'Perfumeria')
+generador_perfumeria.asigna_seccion()
+next(generador_perfumeria.genera_turno())
