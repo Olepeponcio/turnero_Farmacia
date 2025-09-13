@@ -33,7 +33,7 @@ def seleccion_seccion(lista: list):
             print("Entrada no valida, debes introducir 'P', 'F', 'C' o 'S")
         else:
             pass
-        return seccion
+    return seccion
 
 
 def fun_vuelve_al_menu():
